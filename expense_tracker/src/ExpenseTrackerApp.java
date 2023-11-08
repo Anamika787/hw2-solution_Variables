@@ -67,6 +67,19 @@ public class ExpenseTrackerApp {
     JOptionPane.showMessageDialog(view,exception.getMessage());
     view.toFront();
    }});
+//     view.getUndoBtn().addActionListener(e -> {
+//     controller.undoTransaction();
+// });
+view.getTransactionsTable().getSelectionModel().addListSelectionListener(e -> {
+  if (!e.getValueIsAdjusting()) { // Ensure it's not in the middle of selection
+      int selectedRow = view.getTransactionsTable().getSelectedRow();
+      view.setSelectedRowIndex(selectedRow);
+      view.setUndoEnabled(selectedRow >= 0); // Enable or disable the Undo button
+  }
+});
+
+view.getUndoButton().addActionListener(e -> controller.undoSelectedTransaction(view.getSelectedRowIndex()));
+
     
 
   }

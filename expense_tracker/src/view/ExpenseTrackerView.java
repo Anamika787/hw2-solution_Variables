@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
+import controller.ExpenseTrackerController ;
+
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
@@ -27,6 +29,8 @@ public class ExpenseTrackerView extends JFrame {
   private JTextField amountFilterField;
   private JButton amountFilterBtn;
 
+  private JButton undoButton; // Declare the Undo button
+  private int selectedRowIndex = -1; // Store the selected row index
   
 
   public ExpenseTrackerView() {
@@ -61,7 +65,7 @@ public class ExpenseTrackerView extends JFrame {
     JLabel amountFilterLabel = new JLabel("Filter by Amount:");
     amountFilterField = new JTextField(10);
     amountFilterBtn = new JButton("Filter by Amount");
-  
+    //undoBtn = new JButton("Undo");
 
   
     // Layout components
@@ -71,6 +75,8 @@ public class ExpenseTrackerView extends JFrame {
     inputPanel.add(categoryLabel); 
     inputPanel.add(categoryField);
     inputPanel.add(addTransactionBtn);
+   
+    //inputPanel.add(undoBtn); // Add the undo button to the inputPanel
 
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(amountFilterBtn);
@@ -85,14 +91,48 @@ public class ExpenseTrackerView extends JFrame {
     setSize(600, 400); // Increase the size for better visibility
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
-  
+
+    undoButton = new JButton("Undo");
+    undoButton.setEnabled(false); // Initially disabled
+
+        // Add the Undo button to the UI
+    JPanel undoPanel = new JPanel();
+    undoPanel.add(undoButton);
+    add(undoPanel, BorderLayout.EAST);
+
+        // Add an ActionListener for the Undo button
+    //undoButton.addActionListener(e -> controller.undoSelectedTransaction(selectedRowIndex));
+    transactionsTable.getSelectionModel().addListSelectionListener(e -> {
+      if (!e.getValueIsAdjusting()) { // Ensure it's not in the middle of selection
+          int selectedRow = transactionsTable.getSelectedRow();
+          setSelectedRowIndex(selectedRow);
+          setUndoEnabled(selectedRow >= 0); // Enable or disable the Undo button
+      }
+  });
   
   }
 
   public DefaultTableModel getTableModel() {
     return model;
   }
-    
+  // public JButton getUndoBtn()
+  // {
+  //   return undoBtn;
+  // }
+  public void setUndoEnabled(boolean enabled) {
+    undoButton.setEnabled(enabled);
+}
+//getting undo button 
+public JButton getUndoButton() {
+  return undoButton;
+}
+public int getSelectedRowIndex() {
+  return selectedRowIndex;
+}
+// Add a method to set the selected row index
+public void setSelectedRowIndex(int index) {
+    selectedRowIndex = index;
+}
 
   public JTable getTransactionsTable() {
     return transactionsTable;
@@ -193,6 +233,8 @@ public class ExpenseTrackerView extends JFrame {
 
       transactionsTable.repaint();
   }
+  // Add this part in your ExpenseTrackerView constructo
+
 
 
 }

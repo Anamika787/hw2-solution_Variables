@@ -23,7 +23,7 @@ public class ExpenseTrackerModel {
 
   public void removeTransaction(Transaction t) {
     transactions.remove(t);
-  }
+}
 
   public List<Transaction> getTransactions() {
     //encapsulation - data integrity
