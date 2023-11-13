@@ -122,7 +122,7 @@ public class ExpenseTrackerView extends JFrame {
   public void setUndoEnabled(boolean enabled) {
     undoButton.setEnabled(enabled);
 }
-//getting undo button 
+//getter method for undo button 
 public JButton getUndoButton() {
   return undoButton;
 }

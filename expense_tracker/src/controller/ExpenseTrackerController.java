@@ -72,26 +72,11 @@ public class ExpenseTrackerController {
       view.toFront();}
 
   }
-//   public void undoTransaction() {
-//     List<Transaction> transactions = model.getTransactions();
-
-//     if (!transactions.isEmpty()) {
-//         // Remove the last transaction from the list
-//         Transaction removedTransaction = transactions.remove(transactions.size() - 1);
-
-//         // Update the model and view
-//         view.getTableModel().removeRow(transactions.size());
-//         model.removeTransaction(removedTransaction);
-
-//         // Refresh the view to update the table and total cost
-//         refresh();
-//     }
-// }
+//defining the undo functionality for removing the data 
 public void undoSelectedTransaction(int rowIndex) {
   if (rowIndex >= 0) {
       List<Transaction> transactions = model.getTransactions();
-      System.out.println(rowIndex);
-      System.out.println(transactions.size());
+      
       if (rowIndex <= transactions.size()) {
           Transaction removedTransaction = transactions.get(rowIndex);
           model.removeTransaction(removedTransaction); // Remove the selected transaction from the model

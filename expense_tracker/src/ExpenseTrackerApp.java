@@ -70,10 +70,12 @@ public class ExpenseTrackerApp {
 //     view.getUndoBtn().addActionListener(e -> {
 //     controller.undoTransaction();
 // });
+//function in transaction table undo buttin to remove the transaction selected from the gived row 
 view.getTransactionsTable().getSelectionModel().addListSelectionListener(e -> {
   if (!e.getValueIsAdjusting()) { // Ensure it's not in the middle of selection
       int selectedRow = view.getTransactionsTable().getSelectedRow();
       view.setSelectedRowIndex(selectedRow);
+      // undo button only visible when any of the transaction is present in the row 
       view.setUndoEnabled(selectedRow >= 0); // Enable or disable the Undo button
   }
 });

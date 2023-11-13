@@ -20,7 +20,7 @@ public class ExpenseTrackerModel {
     }
     transactions.add(t);
   }
-
+//calling the function to remove the transaction .
   public void removeTransaction(Transaction t) {
     transactions.remove(t);
 }
